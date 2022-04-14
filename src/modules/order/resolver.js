@@ -14,22 +14,34 @@ export default {
 
     Mutation: {
         addOrder: (_, { userId, foodId, count}, {read, write}) => {
+
             let orders = read('orders')
+            for (const order of orders) {
+                if (order.userId == userId && order.foodId == foodId) {
+                    order.count += count
+                    write('orders', orders)
 
-            let newOrder = {
-                orderId: orders.length? +orders.at(-1).orderId + 1 : 1,
-                userId,
-                foodId,
-                count
-            }
+                    return {
+                        status: 201,
+                        message: 'The order added!',
+                        data: order
+                    }
+                }else{
+                    let newOrder = {
+                        orderId: orders.length? +orders.at(-1).orderId + 1 : 1,
+                        userId,
+                        foodId,
+                        count
+                    }
+                    orders.push(newOrder)
+                    write('orders', orders)
 
-            orders.push(newOrder)
-            write('orders', orders)
-
-            return {
-                status: 201,
-                message: 'The order created!',
-                data: newOrder
+                    return {
+                        status: 201,
+                        message: 'The order added!',
+                        data: newOrder
+                    }
+                }
             }
         },
         updateOrder: (_, {orderId, userId, foodId, count}, {read, write}) => {

@@ -3,7 +3,7 @@
         "orderId": "1",
         "foodId": "1",
         "userId": "1",
-        "count": 2
+        "count": 3
     },
     {
         "orderId": "2",
@@ -70,5 +70,11 @@
         "foodId": "4",
         "userId": "6",
         "count": 1
+    },
+    {
+        "orderId": 13,
+        "userId": "82",
+        "foodId": "1",
+        "count": 2
     }
 ]
